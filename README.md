@@ -55,7 +55,6 @@ Initial data quality checks confirmed no critical integrity issues. All foreign 
 
 Across 2,200 orders and a 24-month observation window, the supply chain achieves a headline OTIF rate of **92.5%** and a Gross Profit Margin of **34.4%**, both within acceptable ranges. However, these aggregate figures mask a deteriorating trend: OTIF declined from a peak of ~98.8% in April 2024 to a low of **82.9% in May 2025**, driven disproportionately by two High-Risk suppliers (S005 and S008) and concentrated warehouse failures at **Riga Central DC**. Simultaneously, **expired inventory costs of 12,695 units** (the single largest financial leakage) remain invisible to standard order-level reporting, while the Retail channel silently erodes margin at 33.1% GPM versus HoReCa's 35.9%. Correcting these four structural issues (S005/S008 OTIF, Retail margin, expired inventory, Riga DC) represents a **+23.4K gross profit opportunity, equivalent to +11.2% of current GP**.
 
-**[Visualization: 24-month OTIF trend line with 95% target threshold + quarterly GPM vs. problem rate dual-axis chart]**
 
 ---
 
@@ -79,8 +78,6 @@ S005 (Eastern Frozen) records an on-time rate of **81.9%** (the lowest among all
 **Insight 4: Riga Central DC is the dominant geographic bottleneck.**
 Across all warehouses, Riga Central DC records the lowest OTIF at **89.8%** on 490 orders, the second-highest order volume in the network. The same suppliers (S005 and S008) who underperform system-wide deteriorate *further* at Riga: S008 at Riga reaches only 75.9% OTIF, versus 94.0% at Berlin Export Hub for the same supplier. This 18 percentage-point gap with identical supplier input isolates Riga's internal operations (throughput capacity, handoff protocols, and peak staffing) as an independent failure source rather than a supplier dependency.
 
-**[Visualization: Monthly OTIF trend line (Jan 2024–Dec 2025) with 95% target threshold; bar chart of on-time rate by supplier ranked low-to-high; category and channel on-time rate comparison]**
-
 ---
 
 ### Category 2: Operational Risk (Stockout, Returns, and Waste)
@@ -99,7 +96,6 @@ Among the 606 total waste units recorded in `Fact_Orders.WasteQty`, Bakery contr
 **Insight 4: Returns represent a minor financial risk; quality issues are the true margin threat.**
 Total `ReturnQty` is 460 units, with a net GP loss from returns of approximately 364 cost units, less than 0.2% of total gross profit. This makes returns a low-priority operational issue in financial terms. However, quality issue orders (61 orders, 2.8% rate) carry a GPM of 33.9% versus 34.5% for clean orders, a gap that compounds across high-volume suppliers. S005 quality issue rate (5.1%) is nearly double the system average. E-commerce channel records the lowest quality issue rate (1.7%), while Dairy and Frozen categories are above average at 3.2% and quality-issue distribution is highest in Q3/Q4 months, potentially linked to seasonal temperature stress on cold chain logistics.
 
-**[Visualization: Pareto chart of GP-impacted loss types (Late delivery, Quality, Stockout, Expired Inventory, Waste, Returns); stacked bar chart of waste vs. stockout vs. quality issues by product category]**
 
 ---
 
@@ -122,7 +118,6 @@ Riga records OTIF of 89.8% (490 orders), expired cost of 2,219, order-level wast
 **Insight 4: The Retail channel erodes margin more than any other channel, and the gap is widening.**
 Retail accounts for 939 orders (42.7% of total volume) and 253,000 in revenue, the largest channel by both volume and revenue. However, its GPM of **33.1%** is the lowest across all four channels, 2.84 percentage points below HoReCa's 35.9%. Problem rate in Retail is 20%, the highest of any channel. The GPM penalty combined with the revenue scale creates a disproportionate financial drag: closing the Retail-HoReCa margin gap entirely would generate an estimated **+7,179 in additional gross profit**, the single largest addressable improvement opportunity in the dataset. The Retail channel also records the highest return quantity (200 units) and above-average stockout rates (3.4%).
 
-**[Visualization: Supplier performance heatmap table (OTIF, Stockout, Quality, GPM, Waste, Risk Tier); side-by-side warehouse OTIF vs. waste bar chart; channel GPM ranked bar chart with GP-at-risk overlay]**
 
 ---
 
@@ -151,8 +146,6 @@ Quantified improvement scenarios, modeled against actual order and inventory dat
 | **Total combined opportunity** | | **+28,275 (+13.6%)** |
 
 Implementation sequencing matters: Scenarios S1 and S4 share a dependency on Riga DC operations, meaning they should be addressed as a unified program. S3 is operationally independent and can begin immediately with a demand planning review of the Dairy category.
-
-**[Visualization: Scatter plot OTIF vs GPM by supplier (bubble = order volume); waterfall chart showing GP baseline + each uplift scenario; quarterly GPM line vs. problem rate percentage dual-axis]**
 
 ---
 
@@ -187,14 +180,4 @@ Throughout the analysis, multiple assumptions were made to manage challenges wit
 
 **Stockout Lost Sales Estimation:** The analysis identifies stockout orders (StockoutFlag = 1) but does not attempt to quantify lost revenue from unfulfilled demand, as no demand signal or backorder data exists in the dataset. The 75 flagged stockout orders represent orders that were placed and partially or fully unfulfilled, not the full demand signal that was suppressed. True stockout cost is therefore understated.
 
-**Currency and Unit Normalization:** All financial figures (Revenue, COGS, GrossProfit) are reported in the native reporting currency of the dataset without conversion. The dataset does not specify the currency unit; figures are presented as absolute values. Cross-border transactions (e.g., Czech supplier S008, German warehouse W005) may involve multi-currency dynamics not captured in the data.
-
-**Analysis Period:** The dataset covers January 2024 through December 2025 (24 months, 731 date dimension rows). No partial-month exclusions were required as the dataset begins at the first of January 2024. Seasonal effects (IsDecemberPeak, IsSummer flags in Dim_Date) were noted as potential confounders in trend analysis but were not modeled as explicit controls in this report.
-
-**Supplier Risk Tier Assignment:** RiskTier classifications (High / Medium / Low) in `Dim_Supplier` are provided as pre-existing categorical labels in the source data. The methodology underlying these assignments is not documented in the dataset. Where RiskTier and observed operational performance diverge (for example, Mediterranean Foods with Medium Risk classification, lowest GPM, and strong OTIF), the observed data is used as the primary analytical basis rather than the categorical label.
-
 ---
-
-*Report prepared by: Data Analytics Team*
-*Data sources: Fact_Orders.csv, Inventory_Snapshots.csv, Dim_Supplier.csv, Dim_Warehouse.csv, Dim_Product.csv, Dim_Customer.csv, Dim_Channel.csv, Dim_Date.csv*
-*Analysis period: January 2024 – December 2025 | Total records analyzed: 9,971*
