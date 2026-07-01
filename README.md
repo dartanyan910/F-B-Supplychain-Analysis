@@ -92,19 +92,17 @@ Across all warehouses, Riga Central DC records the lowest OTIF at **89.8%** on 4
  
 > *Where are stockout, returns, and waste/loss occurring?*
  
-**Insight 1: Stockout is concentrated at S008, driven by inventory planning failure rather than logistics.**
-System-wide stockout rate is 3.4% (75 orders). S008 (Value Foods) records a stockout rate of **7.9%** (2.3× the system average) across its 442 orders (20% of total order volume). Critically, inventory snapshot data reveals that **69.9% of monthly observations** for S008's product lines show closing stock below the reorder point, versus a system average of approximately 52%. This chronic understock pattern is consistent with a demand planning misalignment: order cycles are not recalibrated to actual consumption velocity. The problem is not that S008 ships late; the downstream inventory buffer is structurally insufficient.
+**Insight 1: Dairy and Berkery are the source of expired inventory**
+
+Total expired inventory cost across the network stands at approximately 8,000 units. Geographically, this financial leakage is heavily concentrated in three facilities: Vilnius DC (1,917), Warsaw Hub (1,771), and Tallinn Cross-Dock (1,562).
+
+Upon category-level investigation, Dairy and Bakery emerge as the primary drivers of this issue. Dairy alone accounts for 80.46% of the total expired units (6,579 units), while Bakery contributes the remaining 1,598 units. This significant loss is fundamentally driven by a structural mismatch: the Days Sales of Inventory (DSI) for these specific categories significantly exceeds their inherently short shelf life.
+
+<img width="792" height="601" alt="image" src="https://github.com/user-attachments/assets/995878bb-004b-4150-a223-2ee9185cb693" />
  
-**Insight 2: Dairy expired inventory (10,900 units cost) is the single largest financial leakage and is invisible to standard reporting.**
-Total expired inventory cost across the network is approximately **12,695 cost units**, with Dairy accounting for 86% of this figure (10,900). Bakery contributes an additional 1,750. This loss does not appear in `Fact_Orders`; it is captured only in `Inventory_Snapshots.ExpiredQty`. At the warehouse level, Vilnius DC (2,982) and Warsaw Hub (2,863) carry the heaviest expired cost burden, followed by Tallinn Cross-Dock (2,394) and Berlin Export Hub (2,237). The implication is that standard order-based KPI dashboards systematically understate the true cost of operational failure by omitting inventory write-offs.
- 
-**Insight 3: Bakery dominates waste at the order level; S005's cold chain issue generates quality failures, not waste.**
-Among the 606 total waste units recorded in `Fact_Orders.WasteQty`, Bakery contributes 302 (50%) and Dairy 207 (34%). Frozen products, despite being supplied by the highest-risk supplier (S005), contribute only 75 waste units, suggesting that S005's primary failure mode is **cold chain temperature deviation** (quality rejection at delivery, flagged as `QualityIssueFlag = 1` at 5.1%) rather than physical product spoilage at warehouse. Notably, Berlin Export Hub (which records the best OTIF in the network at 95.5%) also carries the highest order-level waste quantity at 212 units, a counterintuitive finding explained by **deliberate overstock buffering** to protect fill rates, with the carrying cost absorbed as waste.
- 
-**Insight 4: Quality issues and expired inventory are the operational risk items that require immediate action; returns and waste are secondary.**
-Returns are financially negligible: total `ReturnQty` is 460 units with a net GP loss of approximately 364 cost units, under 0.1% of total revenue. This item does not warrant dedicated intervention. Quality issue orders (61 orders, 2.8% rate) present a more meaningful signal, with S005 recording a rate of 5.1%, nearly double the system average, concentrated in Q3/Q4 months consistent with seasonal cold chain stress on Frozen products. Expired inventory, as noted in Insight 2, is the single largest absolute loss at 12,695 cost units and is structurally driven by the mismatch between short shelf life (Dairy: 32 days, Bakery: 15 days) and slow inventory turnover velocity at Vilnius DC and Warsaw Hub. The stockout picture cannot be fully assessed with the current dataset: `Fact_Orders` does not include a fulfilled quantity column, which means it is not possible to determine how much of each stockout order was actually shipped versus withheld. The 75 stockout-flagged orders (3.4% rate) confirm the problem exists but do not quantify its magnitude. This is flagged as a data gap requiring resolution before stockout impact can be properly sized.
- 
-**[Visualization: Pareto chart of GP-impacted loss types (Late delivery, Quality, Stockout, Expired Inventory, Waste, Returns); stacked bar chart of waste vs. stockout vs. quality issues by product category]**
+**Insight 2: Bakery and Diary dominates waste at the order level.**
+
+Among the 606 total waste units, Bakery contributes 302 (49.8%) and Dairy 207 (34.2%).
  
 ---
  
@@ -117,16 +115,25 @@ Both suppliers are rated **High Risk** and together account for 580 orders (26.4
  
 - **S005 (Eastern Frozen, Warsaw):** Failure is quality-driven. Quality issue rate 5.1%, cold storage supplier for Frozen products only, planned lead time 11 days, reliability declared at 83%. The Q2 2025 collapse to 53.8% OTIF (from 87.5% in Q4 2024) points to a specific cold chain event between April and June 2025 requiring direct investigation of temperature logs and carrier handoff records.
 - **S008 (Value Foods, Prague):** Failure is inventory-planning-driven. Stockout rate 7.9%, planned lead time 12 days, reliability declared at 80%, defect rate 3.5%. S008 supplies ambient Snacks and Beverages (categories with no cold chain dependency), meaning its underperformance is unrelated to storage conditions and instead reflects misaligned replenishment cycles and insufficient safety stock.
+
 **Insight 2: Mediterranean Foods (S002) presents a hidden financial risk despite strong operational performance.**
+
 S002 records the third-highest OTIF (95.4%), low stockout (0.6%), and moderate quality issues (2.3%), operationally sound by all delivery metrics. However, its GPM of **32.8%** is the lowest in the supplier portfolio, 1.6 percentage points below the system average and 3.6 points below High-Risk S008 (35.0%). This GPM paradox (best-in-class logistics paired with worst-in-class margins) suggests a pricing or contract structure issue rather than operational underperformance. A contract review focusing on unit cost renegotiation would likely yield greater financial return for S002 than any operational improvement program.
  
 **Insight 3: Riga Central DC underperforms on every dimension and serves as a risk amplifier for already-weak suppliers.**
+
 Riga records OTIF of 89.8% (490 orders), expired cost of 2,219, order-level waste of 169 units, and the second-highest stockout rate (3.5%) among warehouses. When the same suppliers are routed through different warehouses, the OTIF differential is stark: S008 achieves 94.0% OTIF at Berlin and only 75.9% at Riga, an 18 pp gap. Similarly, S005 performs worst at Riga (75.0% OTIF, 28 orders) versus 84.4% at Berlin (32 orders). Riga is not merely a low performer; it is a **risk multiplier** that degrades otherwise acceptable supplier performance.
  
 **Insight 4: Supplier performance deteriorates significantly when serving Strategic customers, exposing the company's most valuable relationships to the highest operational risk.**
-When OTIF is segmented by customer priority tier (Strategic, Standard, Low), a critical pattern emerges. S005 (Eastern Frozen) delivers to Strategic-tier customers at only **73.3% OTIF** across 15 orders, and S008 (Value Foods) at **88.9% OTIF** across 36 orders. Both figures fall well below what a strategic customer relationship should tolerate, and both suppliers are already classified as High Risk. In contrast, four suppliers (S001 Baltic Fresh, S002 Mediterranean Foods, S004 Global Snacks, and S007 Premium Beverage) achieve 100% OTIF on all Strategic customer orders, demonstrating that reliable performance at this tier is achievable within the existing network. The supplier landscape can therefore be divided into three groups: **Replace** (S005, S008 — High Risk, low OTIF across all segments), **Watch** (S003 Nordic Dairy, S006 Local Bakery — Medium Risk, OTIF between 91% and 97% depending on tier), and **Retain** (S001, S002, S004, S007 — consistently strong OTIF including on Strategic orders).
- 
-**[Visualization: Supplier performance heatmap table (OTIF, Stockout, Quality, GPM, Waste, Risk Tier); supplier OTIF heatmap by customer priority group (Strategic / Standard / Low); warehouse waste and expired inventory comparison]**
+
+When OTIF is segmented by customer priority tier (Strategic, Standard, Low), a critical pattern emerges. S005 (Eastern Frozen) delivers to Strategic-tier customers at only **73.3% OTIF** across 15 orders, and S008 (Value Foods) at **88.9% OTIF** across 36 orders. Both figures fall well below what a strategic customer relationship should tolerate, and both suppliers are already classified as High Risk. In contrast, four suppliers (S001 Baltic Fresh, S002 Mediterranean Foods, S004 Global Snacks, and S007 Premium Beverage) achieve 100% OTIF on all Strategic customer orders, demonstrating that reliable performance at this tier is achievable within the existing network. 
+
+|<img width="1534" height="588" alt="image" src="https://github.com/user-attachments/assets/2906ace0-6a11-427a-8964-7b88e3ccc365" />|
+|:---:|
+|**Ontime-Infull Rate Heatmap**|
+
+The supplier landscape can therefore be divided into three groups: **Replace** (S005, S008 — High Risk, low OTIF across all segments), **Watch** (S003 Nordic Dairy, S006 Local Bakery — Medium Risk, OTIF between 91% and 97% depending on tier), and **Retain** (S001, S002, S004, S007 — consistently strong OTIF including on Strategic orders).
+
  
 ---
  
