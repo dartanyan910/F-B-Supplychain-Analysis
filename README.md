@@ -20,9 +20,7 @@ Insights and recommendations are provided on the following key areas:
 - **Category 3: Supplier & Warehouse Performance.** Comparative efficiency and root-cause diagnosis across operational dimensions.
 - **Category 4: Financial Impact of Operational Failures.** Revenue and gross profit effects of operational issues, and prioritized improvement opportunities.
 
-The Python code used to inspect and clean the data for this analysis can be found here [link].
-Targeted SQL queries regarding various business questions can be found here [link].
-An interactive dashboard used to report and explore supply chain trends can be found here [link].
+An interactive dashboard used to report and explore supply chain trends can be found here [link](https://github.com/dartanyan910/F-B-Supplychain-Analysis/tree/main/DASHBOARD).
 
 ---
 
