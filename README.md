@@ -1,4 +1,19 @@
-# F&B Supply Chain Performance Analysis Report
+# Supply Chain Performance Analysis Report
+
+---
+## Table of Content
+
+- [Project Background](#project-background)
+- [Data Structure & Initial Checks](#data-structure--initial-checks)
+- [Executive Summary](#executive-summary)
+  - [Overview of Findings](#overview-of-findings)
+- [Insights Deep Dive](#insights-deep-dive)
+  - [Category 1: Delivery Reliability](#category-1-delivery-reliability)
+  - [Category 2: Operational Risk (Stockout, Returns, and Waste)](#category-2-operational-risk-stockout-returns-and-waste)
+  - [Category 3: Supplier & Warehouse Performance](#category-3-supplier--warehouse-performance)
+- [Recommendations](#recommendations)
+- [Assumptions and Caveats](#assumptions-and-caveats)
+
 ---
 
 ## Project Background
@@ -7,20 +22,13 @@ This report presents the findings of a comprehensive supply chain performance an
 
 The company operates a **B2B distribution model**, supplying food and beverage products across four sales channels (Retail, HoReCa (Hotels, Restaurants & Catering), Distributor, and E-commerce) serving 80 customers across multiple countries. The business manages a network of 5 regional warehouses (Poland, Latvia, Lithuania, Estonia, Germany) and sources products from 8 suppliers spanning perishable and ambient categories including Frozen, Dairy, Bakery, Beverages, and Snacks.
 
-Key business metrics tracked across the 2024–2025 period include:
-
-- **Total Revenue:** 605,600 (reporting currency units)
-- **Gross Profit Margin (GPM):** 34.4%
-- **OTIF (On-Time In-Full) Rate:** 92.5% across 2,200 orders
-
 Insights and recommendations are provided on the following key areas:
 
 - **Category 1: Delivery Reliability.** OTIF trends, late delivery patterns, and on-time performance by supplier and product category.
-- **Category 2: Operational Risk.** Stockout, waste, returns, and quality issue distribution across the supply network.
-- **Category 3: Supplier & Warehouse Performance.** Comparative efficiency and root-cause diagnosis across operational dimensions.
-- **Category 4: Financial Impact of Operational Failures.** Revenue and gross profit effects of operational issues, and prioritized improvement opportunities.
+- **Category 2: Operational Risk.** Stockout, waste, and quality issue distribution across the supply network.
+- **Category 3: Supplier & Warehouse Performance.** Comparative efficiency and root-cause diagnosis across operational dimensions, including supplier performance segmented by customer priority group.
 
-An interactive dashboard used to report and explore supply chain trends can be found here [link](https://github.com/dartanyan910/F-B-Supplychain-Analysis/tree/main/DASHBOARD).
+An interactive dashboard used to report and explore supply chain trends can be found here [link].
 
 ---
 
@@ -39,143 +47,124 @@ The company's main dataset consists of the following tables, with a combined tot
 | `Dim_Channel` | Channel dimension repeated per transaction |
 | `Dim_Date` | Date dimension covering the full 2-year analysis window |
 
-|**Figure 1: Entity Relationship Diagram**|
+|<img width="919" height="688" alt="image" src="https://github.com/user-attachments/assets/c3a12259-e5ae-4cf9-bbf0-cecb0317fe20" />|
 |:---:|
-|<img width="678" height="637" alt="image" src="https://github.com/user-attachments/assets/91ba9109-7723-4046-a9f3-0606a6d96f8c" />|
-
-Initial data quality checks confirmed no critical integrity issues. All foreign keys in `Fact_Orders` resolve cleanly to their respective dimension tables. Financial metrics (`Revenue`, `COGS`, `GrossProfit`) were verified as internally consistent: `GrossProfit = Revenue − COGS` holds across all 2,200 rows. Operational flags (`OTIF_Flag`, `StockoutFlag`, `QualityIssueFlag`) are binary and complete with no nulls.
+|**Figure 1**: Entity Relationship Diagram|
 
 ---
 
 ## Executive Summary
-
+ 
 ### Overview of Findings
-
-Across 2,200 orders and a 24-month observation window, the supply chain achieves a headline OTIF rate of **92.5%** and a Gross Profit Margin of **34.4%**, both within acceptable ranges. However, these aggregate figures mask a deteriorating trend: OTIF declined from a peak of ~98.8% in April 2024 to a low of **82.9% in May 2025**, driven disproportionately by two High-Risk suppliers (S005 and S008) and concentrated warehouse failures at **Riga Central DC**. Simultaneously, **expired inventory costs of 12,695 units** (the single largest financial leakage) remain invisible to standard order-level reporting, while the Retail channel silently erodes margin at 33.1% GPM versus HoReCa's 35.9%. Correcting these four structural issues (S005/S008 OTIF, Retail margin, expired inventory, Riga DC) represents a **+23.4K gross profit opportunity, equivalent to +11.2% of current GP**.
-
-
+ 
+Across 2,200 orders and a 24-month observation window, the business is in a financially healthy position. Gross Profit Margin stands at **34.4%**, well above the food distribution industry average of approximately 20%, and has remained broadly stable throughout the period. Financial leakages from returns and waste are negligible in scale and do not require intervention at this time.
+ 
+The primary concerns are operational, not financial. Two issues stand out. First, overall OTIF of **92.5%** falls below the 95% industry benchmark, with the underperformance concentrated in two High-Risk suppliers that are actively degrading service to the company's most strategically important customers. Second, warehouse inventory management shows systemic weaknesses in waste and expired inventory, particularly at Vilnius DC and Riga Central DC, driven by a structural mismatch between product shelf life and current inventory velocity in the Dairy and Bakery categories. Left unaddressed, both issues carry meaningful relationship and reputational risk even if their immediate financial footprint appears contained.
+ 
+**[Visualization: 24-month OTIF trend line with 95% target threshold; supplier OTIF heatmap by customer priority group; warehouse expired inventory and waste by facility]**
+ 
 ---
-
+ 
 ## Insights Deep Dive
-
+ 
 ---
-
+ 
 ### Category 1: Delivery Reliability
-
+ 
 > *How reliable is the current delivery process, based on OTIF rate and late delivery status?*
-
+ 
 **Insight 1: OTIF is declining, not stable.**
 The aggregate OTIF of 92.5% understates the severity of recent performance. In the first half of 2024, system OTIF consistently exceeded 95%, reaching a peak of 98.8% in April 2024. By Q2–Q3 2025, the quarterly average fell to 88.9–90.0%. May 2025 recorded the single worst monthly OTIF at **82.9%** with 15 late orders in that month alone, approximately 3× the monthly average of ~5 late orders. This sustained downward trajectory signals a structural deterioration rather than isolated incidents.
-
-**Insight 2: Late deliveries are concentrated in short delays, pointing to a scheduling problem rather than a logistics breakdown.**
-Of the 164 late orders recorded over the full period, **86 (52%)** were delayed by exactly 1 day, and **40 (24%)** by 2 days. This means that 93% of all late orders are within a 2-day delay band. The average late delay across all instances is 1.9 days. This distribution is characteristic of last-mile scheduling failures (insufficient buffer time in order promising or route optimization gaps) rather than systemic supply disruption. The implication is that operational fixes (scheduling discipline, improved carrier SLAs) could eliminate the majority of late events without major structural investment.
-
-**Insight 3: Supplier and category on-time performance show sharp divergence.**
+ 
+**Insight 2: Supplier and category on-time performance show sharp divergence.**
 S005 (Eastern Frozen) records an on-time rate of **81.9%** (the lowest among all suppliers) and collapsed to **53.8% OTIF in Q2 2025**. S008 (Value Foods) follows at 85.3%. In contrast, S004 (Global Snacks) and S001 (Baltic Fresh) sustain 98.4% and 96.7% respectively. At the category level, Frozen products (primarily S005) have the lowest on-time rate at 91.0%, while Beverages lead at 94.3%. Across channels, Distributor records the lowest OTIF (91.97%) and E-commerce the highest (93.12%), though channel-level differences are narrower than supplier-level differences.
-
-**Insight 4: Riga Central DC is the dominant geographic bottleneck.**
+ 
+**Insight 3: Riga Central DC is the dominant geographic bottleneck.**
 Across all warehouses, Riga Central DC records the lowest OTIF at **89.8%** on 490 orders, the second-highest order volume in the network. The same suppliers (S005 and S008) who underperform system-wide deteriorate *further* at Riga: S008 at Riga reaches only 75.9% OTIF, versus 94.0% at Berlin Export Hub for the same supplier. This 18 percentage-point gap with identical supplier input isolates Riga's internal operations (throughput capacity, handoff protocols, and peak staffing) as an independent failure source rather than a supplier dependency.
-
+ 
+**[Visualization: Monthly OTIF trend line (Jan 2024–Dec 2025) with 95% target threshold; bar chart of on-time rate by supplier ranked low-to-high; category and channel on-time rate comparison]**
+ 
 ---
-
+ 
 ### Category 2: Operational Risk (Stockout, Returns, and Waste)
-
+ 
 > *Where are stockout, returns, and waste/loss occurring?*
-
+ 
 **Insight 1: Stockout is concentrated at S008, driven by inventory planning failure rather than logistics.**
 System-wide stockout rate is 3.4% (75 orders). S008 (Value Foods) records a stockout rate of **7.9%** (2.3× the system average) across its 442 orders (20% of total order volume). Critically, inventory snapshot data reveals that **69.9% of monthly observations** for S008's product lines show closing stock below the reorder point, versus a system average of approximately 52%. This chronic understock pattern is consistent with a demand planning misalignment: order cycles are not recalibrated to actual consumption velocity. The problem is not that S008 ships late; the downstream inventory buffer is structurally insufficient.
-
+ 
 **Insight 2: Dairy expired inventory (10,900 units cost) is the single largest financial leakage and is invisible to standard reporting.**
 Total expired inventory cost across the network is approximately **12,695 cost units**, with Dairy accounting for 86% of this figure (10,900). Bakery contributes an additional 1,750. This loss does not appear in `Fact_Orders`; it is captured only in `Inventory_Snapshots.ExpiredQty`. At the warehouse level, Vilnius DC (2,982) and Warsaw Hub (2,863) carry the heaviest expired cost burden, followed by Tallinn Cross-Dock (2,394) and Berlin Export Hub (2,237). The implication is that standard order-based KPI dashboards systematically understate the true cost of operational failure by omitting inventory write-offs.
-
+ 
 **Insight 3: Bakery dominates waste at the order level; S005's cold chain issue generates quality failures, not waste.**
 Among the 606 total waste units recorded in `Fact_Orders.WasteQty`, Bakery contributes 302 (50%) and Dairy 207 (34%). Frozen products, despite being supplied by the highest-risk supplier (S005), contribute only 75 waste units, suggesting that S005's primary failure mode is **cold chain temperature deviation** (quality rejection at delivery, flagged as `QualityIssueFlag = 1` at 5.1%) rather than physical product spoilage at warehouse. Notably, Berlin Export Hub (which records the best OTIF in the network at 95.5%) also carries the highest order-level waste quantity at 212 units, a counterintuitive finding explained by **deliberate overstock buffering** to protect fill rates, with the carrying cost absorbed as waste.
-
-**Insight 4: Returns represent a minor financial risk; quality issues are the true margin threat.**
-Total `ReturnQty` is 460 units, with a net GP loss from returns of approximately 364 cost units, less than 0.2% of total gross profit. This makes returns a low-priority operational issue in financial terms. However, quality issue orders (61 orders, 2.8% rate) carry a GPM of 33.9% versus 34.5% for clean orders, a gap that compounds across high-volume suppliers. S005 quality issue rate (5.1%) is nearly double the system average. E-commerce channel records the lowest quality issue rate (1.7%), while Dairy and Frozen categories are above average at 3.2% and quality-issue distribution is highest in Q3/Q4 months, potentially linked to seasonal temperature stress on cold chain logistics.
-
-
+ 
+**Insight 4: Quality issues and expired inventory are the operational risk items that require immediate action; returns and waste are secondary.**
+Returns are financially negligible: total `ReturnQty` is 460 units with a net GP loss of approximately 364 cost units, under 0.1% of total revenue. This item does not warrant dedicated intervention. Quality issue orders (61 orders, 2.8% rate) present a more meaningful signal, with S005 recording a rate of 5.1%, nearly double the system average, concentrated in Q3/Q4 months consistent with seasonal cold chain stress on Frozen products. Expired inventory, as noted in Insight 2, is the single largest absolute loss at 12,695 cost units and is structurally driven by the mismatch between short shelf life (Dairy: 32 days, Bakery: 15 days) and slow inventory turnover velocity at Vilnius DC and Warsaw Hub. The stockout picture cannot be fully assessed with the current dataset: `Fact_Orders` does not include a fulfilled quantity column, which means it is not possible to determine how much of each stockout order was actually shipped versus withheld. The 75 stockout-flagged orders (3.4% rate) confirm the problem exists but do not quantify its magnitude. This is flagged as a data gap requiring resolution before stockout impact can be properly sized.
+ 
+**[Visualization: Pareto chart of GP-impacted loss types (Late delivery, Quality, Stockout, Expired Inventory, Waste, Returns); stacked bar chart of waste vs. stockout vs. quality issues by product category]**
+ 
 ---
-
+ 
 ### Category 3: Supplier & Warehouse Performance
-
+ 
 > *Which suppliers, warehouses, or distribution channels are underperforming?*
-
+ 
 **Insight 1: S005 and S008 have fundamentally different root causes and require different interventions.**
 Both suppliers are rated **High Risk** and together account for 580 orders (26.4% of total volume). However, their failure modes diverge completely:
-
+ 
 - **S005 (Eastern Frozen, Warsaw):** Failure is quality-driven. Quality issue rate 5.1%, cold storage supplier for Frozen products only, planned lead time 11 days, reliability declared at 83%. The Q2 2025 collapse to 53.8% OTIF (from 87.5% in Q4 2024) points to a specific cold chain event between April and June 2025 requiring direct investigation of temperature logs and carrier handoff records.
 - **S008 (Value Foods, Prague):** Failure is inventory-planning-driven. Stockout rate 7.9%, planned lead time 12 days, reliability declared at 80%, defect rate 3.5%. S008 supplies ambient Snacks and Beverages (categories with no cold chain dependency), meaning its underperformance is unrelated to storage conditions and instead reflects misaligned replenishment cycles and insufficient safety stock.
-
 **Insight 2: Mediterranean Foods (S002) presents a hidden financial risk despite strong operational performance.**
 S002 records the third-highest OTIF (95.4%), low stockout (0.6%), and moderate quality issues (2.3%), operationally sound by all delivery metrics. However, its GPM of **32.8%** is the lowest in the supplier portfolio, 1.6 percentage points below the system average and 3.6 points below High-Risk S008 (35.0%). This GPM paradox (best-in-class logistics paired with worst-in-class margins) suggests a pricing or contract structure issue rather than operational underperformance. A contract review focusing on unit cost renegotiation would likely yield greater financial return for S002 than any operational improvement program.
-
+ 
 **Insight 3: Riga Central DC underperforms on every dimension and serves as a risk amplifier for already-weak suppliers.**
 Riga records OTIF of 89.8% (490 orders), expired cost of 2,219, order-level waste of 169 units, and the second-highest stockout rate (3.5%) among warehouses. When the same suppliers are routed through different warehouses, the OTIF differential is stark: S008 achieves 94.0% OTIF at Berlin and only 75.9% at Riga, an 18 pp gap. Similarly, S005 performs worst at Riga (75.0% OTIF, 28 orders) versus 84.4% at Berlin (32 orders). Riga is not merely a low performer; it is a **risk multiplier** that degrades otherwise acceptable supplier performance.
-
-**Insight 4: The Retail channel erodes margin more than any other channel, and the gap is widening.**
-Retail accounts for 939 orders (42.7% of total volume) and 253,000 in revenue, the largest channel by both volume and revenue. However, its GPM of **33.1%** is the lowest across all four channels, 2.84 percentage points below HoReCa's 35.9%. Problem rate in Retail is 20%, the highest of any channel. The GPM penalty combined with the revenue scale creates a disproportionate financial drag: closing the Retail-HoReCa margin gap entirely would generate an estimated **+7,179 in additional gross profit**, the single largest addressable improvement opportunity in the dataset. The Retail channel also records the highest return quantity (200 units) and above-average stockout rates (3.4%).
-
-
+ 
+**Insight 4: Supplier performance deteriorates significantly when serving Strategic customers, exposing the company's most valuable relationships to the highest operational risk.**
+When OTIF is segmented by customer priority tier (Strategic, Standard, Low), a critical pattern emerges. S005 (Eastern Frozen) delivers to Strategic-tier customers at only **73.3% OTIF** across 15 orders, and S008 (Value Foods) at **88.9% OTIF** across 36 orders. Both figures fall well below what a strategic customer relationship should tolerate, and both suppliers are already classified as High Risk. In contrast, four suppliers (S001 Baltic Fresh, S002 Mediterranean Foods, S004 Global Snacks, and S007 Premium Beverage) achieve 100% OTIF on all Strategic customer orders, demonstrating that reliable performance at this tier is achievable within the existing network. The supplier landscape can therefore be divided into three groups: **Replace** (S005, S008 — High Risk, low OTIF across all segments), **Watch** (S003 Nordic Dairy, S006 Local Bakery — Medium Risk, OTIF between 91% and 97% depending on tier), and **Retain** (S001, S002, S004, S007 — consistently strong OTIF including on Strategic orders).
+ 
+**[Visualization: Supplier performance heatmap table (OTIF, Stockout, Quality, GPM, Waste, Risk Tier); supplier OTIF heatmap by customer priority group (Strategic / Standard / Low); warehouse waste and expired inventory comparison]**
+ 
 ---
-
-### Category 4: Financial Impact of Operational Failures
-
-> *How are operational issues impacting revenue and gross profit?*
-
-**Insight 1: The GPM gap between clean and problem orders is small in absolute terms but structurally widening over time.**
-Orders with at least one operational issue (late, stockout, quality, waste, or return) represent 19.4% of all orders (426 of 2,200). These problem orders carry a GPM of **34.1%** versus **34.5%** for clean orders, a delta of 0.42 percentage points. While this seems modest, the trend is concerning: the proportion of problem orders has grown from 16.1% in Q1 2024 to a peak of **24.2% in Q3 2025**, a 50% relative increase in 18 months. If this trajectory continues and the problem rate reaches 30%, the margin drag will compound materially against a growing base.
-
-**Insight 2: Late delivery creates the largest revenue exposure; expired inventory creates the largest invisible cash loss.**
-By revenue exposure, late delivery affects the most orders (164) and the highest aggregate revenue pool (47,415 in associated revenue). However, by direct profit destruction (cash that is entirely lost with no offsetting revenue), **expired inventory at 12,695 cost units** is the leading source. This figure does not appear in any standard order-level P&L and is only recoverable through an inventory management intervention. The full loss hierarchy is: Late delivery GP impact (~2,200), Quality issues (~1,600), Stockout (~1,500), Expired inventory (~12,695 absolute cost, not margin delta), Order-level waste (878), and Returns (364).
-
-**Insight 3: The OTIF-GPM relationship reveals a counterintuitive risk structure that masks supplier risk in profitability reports.**
-A scatter analysis of OTIF versus GPM by supplier produces a non-linear, segmented pattern. High-Risk suppliers S005 and S008 both record GPM of **35.0%**, above the system average of 34.4% and significantly above Mediterranean Foods (95.4% OTIF, 32.8% GPM). This means that standard supplier profitability reports will rank S005 and S008 as financially attractive partners despite their operational fragility. The explanation is that these suppliers compensate for operational underperformance through lower input costs, effectively transferring their operational risk discount to the buyer's margin. This arrangement is financially stable only as long as service failures remain below a threshold where lost sales, SLA penalties, and customer churn costs exceed the cost advantage, a threshold that current trend lines suggest is approaching.
-
-**Insight 4: Four targeted interventions represent a combined +23,400 gross profit opportunity (+11.2% of current GP).**
-Quantified improvement scenarios, modeled against actual order and inventory data:
-
-| Scenario | Mechanism | GP Uplift Estimate |
-|---|---|---|
-| S1: Fix S005 + S008 OTIF to 95% | Reduce problem orders from 26.4% to system average | +9,883 |
-| S2: Lift Retail GPM to HoReCa level | Reduce problem rate + improve product/discount mix | +7,179 |
-| S3: Reduce expired inventory by 50% | Improve demand planning for Dairy and Bakery SKUs | +6,348 |
-| S4: Improve Riga DC to Berlin OTIF standard | Process and capacity intervention at Riga | +4,865 |
-| **Total combined opportunity** | | **+28,275 (+13.6%)** |
-
-Implementation sequencing matters: Scenarios S1 and S4 share a dependency on Riga DC operations, meaning they should be addressed as a unified program. S3 is operationally independent and can begin immediately with a demand planning review of the Dairy category.
-
+ 
 ---
-
+ 
 ## Recommendations
-
-Based on the insights and findings above, we recommend the supply chain operations, commercial, and procurement teams consider the following actions:
-
-**1. Initiate a cold chain audit for S005 (Eastern Frozen) with immediate channel reallocation.**
-S005's quality issue rate of 5.1% and collapse to 53.8% OTIF in Q2 2025 indicate a cold chain integrity failure, not a scheduling problem. Recommended action: conduct a temperature log review and carrier handoff audit for all S005 shipments between April and June 2025 to identify the root event. Concurrently, cap S005's Retail channel allocation at below 15% of its total volume (currently receiving 52 orders in Retail at 71.2% OTIF) and redirect to HoReCa (93.0% OTIF), where delivery time requirements are more flexible. Expected timeline: 35 to 40 days. Expected OTIF uplift: S005 total from 81.9% to above 88%.
-
-**2. Increase safety stock for S008 at Riga Central DC and trigger a contract renegotiation.**
-With 69.9% of monthly snapshots below reorder point and a 7.9% stockout rate, S008's replenishment policy at Riga is structurally undersized. Increase safety stock by 20–30% for Snacks and Beverages SKUs at Riga, and set automated alerts when closing stock falls below 1.5× reorder point. In parallel, engage S008 on contract renegotiation to include a 95% OTIF SLA with a 2% invoice penalty per breach; the supplier's current 35.0% GPM provides headroom to absorb this. Expected timeline: 30 days for stock adjustment and 60 to 90 days for contract finalization. Expected GP recovery: +4,500 to +9,900.
-
-**3. Launch a Retail channel margin improvement program as a 90-day commercial priority.**
-With a 2.84 pp GPM gap versus HoReCa on 253,000 in revenue, Retail represents the highest-leverage single addressable opportunity (+7,179 GP). Three complementary levers: (a) reduce Retail problem rate from 20% to below 12% through stricter supplier SLA enforcement for Retail-destined orders; (b) shift product mix toward Beverages (GPM 36.2%) and away from Bakery (GPM 33.7%) within Retail assortment; (c) review Retail discount policy, which appears structurally higher than other channels. Expected timeline: 90–120 days for full impact.
-
-**4. Conduct an inventory cycle review for Dairy SKUs to halt expired inventory accumulation.**
-Dairy expired cost of 10,900 represents 86% of total network expired inventory cost and does not appear in any standard order-based reporting. This is a silent cash drain. Immediate action: review order frequency and batch size for Dairy products at Vilnius DC and Warsaw Hub (highest expired concentration). Reduce order batch size by 15–20% and increase replenishment frequency. Expected saving: 3,000 to 6,000 in the first 12 months depending on Dairy demand volatility.
-
-**5. Establish a monthly supplier KPI scorecard with automated threshold alerts.**
-The most critical near-term enabler is early warning capability. S005 fell from 87.5% OTIF (Q4 2024) to 53.8% (Q2 2025) without any documented detection trigger in the current reporting setup. Implement a lightweight monthly scorecard tracking OTIF, stockout rate, and quality issue rate for all 8 suppliers, with dashboard alerts at 90% and 85% thresholds. This costs approximately 10 analyst-days to build and is the foundational layer for all other recommendations. Expected timeline: 10 days to deploy.
-
+ 
+Based on the insights and findings above, we recommend the supply chain operations, procurement, and inventory management teams consider the following actions:
+ 
+**1. Begin supplier replacement planning for S005 (Eastern Frozen) and S008 (Value Foods).**
+Both suppliers are rated High Risk and are currently delivering to Strategic customers at OTIF levels of 73.3% and 88.9% respectively — performance that poses direct relationship risk to the company's most valuable accounts. S005's failure mode is cold chain quality (5.1% quality issue rate, with a collapse to 53.8% OTIF in Q2 2025 pointing to a specific operational event requiring investigation). S008's failure mode is inventory planning (7.9% stockout rate, with 69.9% of monthly inventory snapshots falling below reorder point). Given the divergence in root causes and the concentration of risk on Strategic customers, the recommended path is to initiate parallel sourcing for both suppliers' product categories and qualify at least one alternative supplier in each case. In the interim, S005 orders destined for Strategic accounts should be capped and rerouted through channels with more flexible delivery windows, and S008's safety stock at Riga Central DC should be increased by 20 to 30% immediately while a replacement sourcing process runs in parallel.
+ 
+**2. Restructure Dairy and Bakery inventory ordering at Vilnius DC and Warsaw Hub to address expired inventory losses.**
+Expired inventory costs of 12,695 cost units are entirely concentrated in Dairy (10,900) and Bakery (1,750), driven by a structural mismatch: Dairy carries an average shelf life of 32 days and Bakery 15 days, while both categories record among the highest Days Sales of Inventory in the network. The fix is not demand generation but cycle adjustment. Reduce order batch sizes for Dairy and Bakery SKUs at Vilnius DC and Warsaw Hub by 15 to 20%, increase order frequency to match actual consumption velocity, and set expiry-based picking rules to enforce FEFO (First Expired, First Out) discipline. This intervention does not require supplier changes and can be implemented within 30 days. Expected reduction in expired inventory cost: 3,000 to 6,000 in the first 12 months.
+ 
+**3. Place S003 (Nordic Dairy) and S006 (Local Bakery) on a structured performance watch program.**
+Both suppliers currently sit in the mid-range of OTIF performance (S003 at 92.3%, S006 at 94.9% overall) but show sufficient variability across customer segments to warrant monitoring. S003 records a quality issue rate of 10.3% on Strategic customer orders, which is elevated. S006 records 91.4% OTIF on Strategic orders, which is borderline. Neither requires immediate replacement action, but both should be included in the monthly supplier KPI scorecard with explicit escalation triggers at 90% OTIF or 3% quality issue rate sustained for two consecutive months.
+ 
+**4. Establish a monthly supplier KPI scorecard segmented by customer priority tier.**
+Current reporting does not surface the interaction between supplier performance and customer priority, which is where the most significant relationship risk is concentrated. The scorecard should track OTIF, stockout rate, and quality issue rate for each supplier broken down by Strategic, Standard, and Low customer segments, with automated alerts when any supplier falls below 90% OTIF on Strategic accounts. This requires joining `Fact_Orders` with `Dim_Customer[Priority]` and `Dim_Supplier[SupplierName]` — a straightforward data model extension. Expected build time: 10 analyst-days.
+ 
+**5. Obtain fulfilled quantity data at the order level to enable stockout impact quantification.**
+The current dataset flags 75 orders (3.4%) as stockout-affected via `Fact_Orders[StockoutFlag]`, but the absence of a `ShippedQty` or `FulfilledQty` column means it is not possible to determine how much of the ordered quantity was actually delivered versus withheld. This prevents any reliable estimation of lost revenue from stockout events. The recommended action is to request the addition of fulfilled quantity at the order line level from the source system in the next data extract. Until this column is available, stockout financial impact will remain an unquantified risk in this analysis.
+ 
 ---
-
+ 
 ## Assumptions and Caveats
-
+ 
 Throughout the analysis, multiple assumptions were made to manage challenges with the data. These assumptions and caveats are noted below:
-
+ 
 **Expired Inventory Cost Estimation:** The expired inventory cost figure (12,695 units) is derived by joining `Inventory_Snapshots.ExpiredQty` with `Dim_Product.StandardCost`. This uses standard cost as a proxy for actual inventory carrying value. If actual landed cost differs materially from standard cost for specific SKUs, particularly for imported Dairy or Frozen products where logistics costs are embedded, the expired cost figure may be over- or under-stated. No actual write-off records were available in the dataset to validate this calculation.
-
-**GP Uplift Scenario Modeling:** All four improvement scenarios (S1–S4) are based on applying benchmark GPM and OTIF rates to the affected order or revenue base. These are conservative linear estimates and do not model second-order effects such as customer churn recovery from improved OTIF, volume growth from better Retail relationships, or supplier price renegotiation outcomes. Actual realized GP uplift may be higher or lower depending on implementation fidelity and market response.
-
-**Stockout Lost Sales Estimation:** The analysis identifies stockout orders (StockoutFlag = 1) but does not attempt to quantify lost revenue from unfulfilled demand, as no demand signal or backorder data exists in the dataset. The 75 flagged stockout orders represent orders that were placed and partially or fully unfulfilled, not the full demand signal that was suppressed. True stockout cost is therefore understated.
-
+ 
+**Inventory Cycle Adjustment Savings Estimate:** The projected saving of 3,000 to 6,000 from reducing expired inventory at Vilnius DC and Warsaw Hub assumes that order frequency can be increased without triggering minimum order quantity penalties or significant freight cost increases from smaller, more frequent deliveries. If either constraint applies, the net saving will be lower and a separate cost-benefit analysis covering logistics surcharges should be conducted before implementation.
+ 
+**Stockout Quantification Limitation:** `Fact_Orders[StockoutFlag]` identifies 75 orders where a stockout condition was present, but the dataset does not include a fulfilled quantity column. As a result, it is not possible to determine how much of the ordered quantity was shipped versus withheld in each case, nor to estimate the revenue impact of the shortfall. All 75 stockout-flagged orders carry non-zero revenue values, confirming partial fulfillment occurred, but the unfulfilled portion remains unobservable. This is an explicit data gap acknowledged in the recommendations section. Until a `ShippedQty` or `FulfilledQty` field is available at the order line level, any stockout revenue estimate would require assumptions that cannot be validated against actual operational records.
+ 
+**Currency and Unit Normalization:** All financial figures (Revenue, COGS, GrossProfit) are reported in the native reporting currency of the dataset without conversion. The dataset does not specify the currency unit; figures are presented as absolute values. Cross-border transactions (e.g., Czech supplier S008, German warehouse W005) may involve multi-currency dynamics not captured in the data.
+ 
+**Analysis Period:** The dataset covers January 2024 through December 2025 (24 months, 731 date dimension rows). No partial-month exclusions were required as the dataset begins at the first of January 2024. Seasonal effects (IsDecemberPeak, IsSummer flags in Dim_Date) were noted as potential confounders in trend analysis but were not modeled as explicit controls in this report.
+ 
+**Supplier Risk Tier Assignment:** RiskTier classifications (High / Medium / Low) in `Dim_Supplier` are provided as pre-existing categorical labels in the source data. The methodology underlying these assignments is not documented in the dataset. Where RiskTier and observed operational performance diverge (for example, Mediterranean Foods with Medium Risk classification, lowest GPM, and strong OTIF), the observed data is used as the primary analytical basis rather than the categorical label.
+ 
 ---
