@@ -4,7 +4,7 @@
 ## Table of Content
 
 - [Project Background](#project-background)
-- [Data Structure & Initial Checks](#data-structure--initial-checks)
+- [Data Structure](#data-structure)
 - [Executive Summary](#executive-summary)
   - [Overview of Findings](#overview-of-findings)
 - [Insights Deep Dive](#insights-deep-dive)
@@ -32,7 +32,7 @@ An interactive dashboard used to report and explore supply chain trends can be f
 
 ---
 
-## Data Structure & Initial Checks
+## Data Structure
 
 The company's main dataset consists of the following tables, with a combined total of approximately **9,971 records**:
 
@@ -57,11 +57,13 @@ The company's main dataset consists of the following tables, with a combined tot
  
 ### Overview of Findings
  
-Across 2,200 orders and a 24-month observation window, the business is in a financially healthy position. Gross Profit Margin stands at **34.4%**, well above the food distribution industry average of approximately 20%, and has remained broadly stable throughout the period. Financial leakages from returns and waste are negligible in scale and do not require intervention at this time.
+Across 2,200 orders and a 24-month observation window, the business is in a financially healthy position. Gross Profit Margin stands at **34.6%**, well above the food distribution industry average of approximately 20%, and has remained broadly stable throughout the period. Financial leakages from returns is negligible in scale and do not require intervention at this time.
  
-The primary concerns are operational, not financial. Two issues stand out. First, overall OTIF of **92.5%** falls below the 95% industry benchmark, with the underperformance concentrated in two High-Risk suppliers that are actively degrading service to the company's most strategically important customers. Second, warehouse inventory management shows systemic weaknesses in waste and expired inventory, particularly at Vilnius DC and Riga Central DC, driven by a structural mismatch between product shelf life and current inventory velocity in the Dairy and Bakery categories. Left unaddressed, both issues carry meaningful relationship and reputational risk even if their immediate financial footprint appears contained.
- 
-**[Visualization: 24-month OTIF trend line with 95% target threshold; supplier OTIF heatmap by customer priority group; warehouse expired inventory and waste by facility]**
+The primary concerns are operational, not financial. Two issues stand out. First, overall OTIF of **92.5%** falls below the 95% industry benchmark, with the underperformance concentrated in two High-Risk suppliers that are actively degrading service to the company's most strategically important customers. Second, warehouse inventory management shows systemic weaknesses in waste and expired inventory, driven by a structural mismatch between product shelf life and current inventory velocity in the Dairy and Bakery categories. Left unaddressed, both issues carry meaningful relationship and reputational risk even if their immediate financial footprint appears contained.
+
+|<img width="1153" height="112" alt="image" src="https://github.com/user-attachments/assets/3fb5defb-0c07-411d-b123-4cdd26c28213" />|
+|:---:|
+|**Overview KPI**|
  
 ---
  
@@ -125,8 +127,6 @@ Riga records OTIF of 89.8% (490 orders), expired cost of 2,219, order-level wast
 When OTIF is segmented by customer priority tier (Strategic, Standard, Low), a critical pattern emerges. S005 (Eastern Frozen) delivers to Strategic-tier customers at only **73.3% OTIF** across 15 orders, and S008 (Value Foods) at **88.9% OTIF** across 36 orders. Both figures fall well below what a strategic customer relationship should tolerate, and both suppliers are already classified as High Risk. In contrast, four suppliers (S001 Baltic Fresh, S002 Mediterranean Foods, S004 Global Snacks, and S007 Premium Beverage) achieve 100% OTIF on all Strategic customer orders, demonstrating that reliable performance at this tier is achievable within the existing network. The supplier landscape can therefore be divided into three groups: **Replace** (S005, S008 — High Risk, low OTIF across all segments), **Watch** (S003 Nordic Dairy, S006 Local Bakery — Medium Risk, OTIF between 91% and 97% depending on tier), and **Retain** (S001, S002, S004, S007 — consistently strong OTIF including on Strategic orders).
  
 **[Visualization: Supplier performance heatmap table (OTIF, Stockout, Quality, GPM, Waste, Risk Tier); supplier OTIF heatmap by customer priority group (Strategic / Standard / Low); warehouse waste and expired inventory comparison]**
- 
----
  
 ---
  
