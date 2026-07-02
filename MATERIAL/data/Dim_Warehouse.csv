@@ -1,0 +1,6 @@
+WarehouseID,WarehouseName,Country,WarehouseRegion,CapacityPallets,ColdStorageFlag
+W001,Riga Central DC,Latvia,Baltics,9200,1
+W002,Vilnius DC,Lithuania,Baltics,7600,1
+W003,Tallinn Cross-Dock,Estonia,Baltics,5400,0
+W004,Warsaw Hub,Poland,East Europe,11800,1
+W005,Berlin Export Hub,Germany,West Europe,13200,1

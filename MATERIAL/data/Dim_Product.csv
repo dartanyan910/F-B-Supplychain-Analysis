@@ -1,0 +1,43 @@
+ProductID,Category,Subcategory,Brand,ProductName,ShelfLifeDays,StorageType,UnitWeightKg,ListPrice,StandardCost
+P001,Beverages,Carbonated Drinks,FizzUp,FizzUp Carbonated Drinks SKU 1,185,Ambient,0.33,2.04,1.07
+P002,Beverages,Carbonated Drinks,FizzUp,FizzUp Carbonated Drinks SKU 2,200,Ambient,0.99,1.5,0.81
+P003,Beverages,Carbonated Drinks,FizzUp,FizzUp Carbonated Drinks SKU 3,177,Ambient,0.18,1.44,0.87
+P004,Beverages,Juices,Orchard,Orchard Juices SKU 1,194,Ambient,0.28,1.6,1.02
+P005,Beverages,Juices,Orchard,Orchard Juices SKU 2,184,Ambient,0.54,2.05,1.29
+P006,Beverages,Juices,Orchard,Orchard Juices SKU 3,201,Ambient,0.9,1.65,1.14
+P007,Beverages,Water,PureSpring,PureSpring Water SKU 1,181,Ambient,0.3,2.1,1.23
+P008,Beverages,Water,PureSpring,PureSpring Water SKU 2,189,Ambient,0.18,2.17,1.17
+P009,Beverages,Water,PureSpring,PureSpring Water SKU 3,202,Ambient,0.12,2.27,1.45
+P010,Beverages,Energy Drinks,Bolt,Bolt Energy Drinks SKU 1,189,Ambient,0.16,1.85,1.01
+P011,Beverages,Energy Drinks,Bolt,Bolt Energy Drinks SKU 2,205,Ambient,0.96,1.67,1.08
+P012,Beverages,Energy Drinks,Bolt,Bolt Energy Drinks SKU 3,178,Ambient,0.75,1.97,1.3
+P013,Dairy,Milk,NordMilk,NordMilk Milk SKU 1,42,Chilled,0.32,2.91,2.09
+P014,Dairy,Milk,NordMilk,NordMilk Milk SKU 2,35,Chilled,0.93,1.95,1.12
+P015,Dairy,Milk,NordMilk,NordMilk Milk SKU 3,36,Chilled,0.35,2.03,1.2
+P016,Dairy,Yogurt,CreamyWay,CreamyWay Yogurt SKU 1,34,Chilled,0.73,3.15,2.05
+P017,Dairy,Yogurt,CreamyWay,CreamyWay Yogurt SKU 2,29,Chilled,0.47,2.57,1.46
+P018,Dairy,Yogurt,CreamyWay,CreamyWay Yogurt SKU 3,32,Chilled,0.3,3.22,2.09
+P019,Dairy,Cheese,OldBarn,OldBarn Cheese SKU 1,16,Chilled,0.31,2.27,1.53
+P020,Dairy,Cheese,OldBarn,OldBarn Cheese SKU 2,23,Chilled,0.15,1.85,1.08
+P021,Dairy,Cheese,OldBarn,OldBarn Cheese SKU 3,37,Chilled,0.4,3.11,1.97
+P022,Snacks,Chips,CrispCo,CrispCo Chips SKU 1,257,Ambient,0.55,2.52,1.51
+P023,Snacks,Chips,CrispCo,CrispCo Chips SKU 2,254,Ambient,0.63,2,1.14
+P024,Snacks,Chips,CrispCo,CrispCo Chips SKU 3,255,Ambient,0.49,2.64,1.6
+P025,Snacks,Nuts,NutriBite,NutriBite Nuts SKU 1,253,Ambient,0.58,1.94,1.4
+P026,Snacks,Nuts,NutriBite,NutriBite Nuts SKU 2,241,Ambient,0.72,2.65,1.83
+P027,Snacks,Nuts,NutriBite,NutriBite Nuts SKU 3,239,Ambient,0.47,2.7,1.63
+P028,Snacks,Biscuits,BakeHouse,BakeHouse Biscuits SKU 1,245,Ambient,1.07,2.44,1.5
+P029,Snacks,Biscuits,BakeHouse,BakeHouse Biscuits SKU 2,260,Ambient,0.2,2.79,1.46
+P030,Snacks,Biscuits,BakeHouse,BakeHouse Biscuits SKU 3,261,Ambient,0.73,2.82,1.89
+P031,Frozen,Ready Meals,FrostBite,FrostBite Ready Meals SKU 1,376,Frozen,0.08,3.43,2.08
+P032,Frozen,Ready Meals,FrostBite,FrostBite Ready Meals SKU 2,378,Frozen,0.86,4.97,3.3
+P033,Frozen,Ready Meals,FrostBite,FrostBite Ready Meals SKU 3,382,Frozen,0.38,4.43,2.4
+P034,Frozen,Ice Cream,SnowCup,SnowCup Ice Cream SKU 1,366,Frozen,0.46,4.76,3.05
+P035,Frozen,Ice Cream,SnowCup,SnowCup Ice Cream SKU 2,378,Frozen,1.02,3.56,2.53
+P036,Frozen,Ice Cream,SnowCup,SnowCup Ice Cream SKU 3,365,Frozen,1.03,4.66,2.88
+P037,Bakery,Bread,GrainGold,GrainGold Bread SKU 1,11,Ambient,0.32,2.04,1.4
+P038,Bakery,Bread,GrainGold,GrainGold Bread SKU 2,4,Ambient,0.17,1.43,0.91
+P039,Bakery,Bread,GrainGold,GrainGold Bread SKU 3,26,Ambient,0.62,1.67,0.89
+P040,Bakery,Pastry,SweetHill,SweetHill Pastry SKU 1,19,Ambient,0.25,1.32,0.86
+P041,Bakery,Pastry,SweetHill,SweetHill Pastry SKU 2,8,Ambient,1.03,1.71,1.1
+P042,Bakery,Pastry,SweetHill,SweetHill Pastry SKU 3,24,Ambient,0.4,1.93,1.27

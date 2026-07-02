@@ -1,0 +1,9 @@
+SupplierID,SupplierName,SupplierRegion,RiskTier,PlannedLeadTimeDays,ReliabilityPct,AvgDefectRate,City,Country,Latitude,Longitude
+S001,Baltic Fresh Co,Baltics,Low,5,0.96,0.006,Riga,Latvia,56.946,24.10589
+S002,Mediterranean Foods,South Europe,Medium,9,0.91,0.014,Milan,Italy,45.46427,9.18951
+S003,Nordic Dairy Group,Nordics,Medium,6,0.89,0.02,Stockholm,Sweden,59.33258,18.0649
+S004,Global Snacks Ltd,West Europe,Low,7,0.95,0.009,Amsterdam,Netherlands,52.370216,4.895168
+S005,Eastern Frozen Logistics,East Europe,High,11,0.83,0.028,Warsaw,Poland,52.22977,21.01178
+S006,Local Bakery Network,Baltics,Medium,2,0.88,0.018,Tallinn,Estonia,59.43696,24.75353
+S007,Premium Beverage Imports,West Europe,Medium,10,0.9,0.012,Amsterdam,Netherlands,52.370216,4.895168
+S008,Value Foods Wholesale,East Europe,High,12,0.8,0.035,Prague,Czech Republic,50.075538,14.437801

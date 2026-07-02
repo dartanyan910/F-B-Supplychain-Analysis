@@ -1,0 +1,81 @@
+CustomerID,CustomerName,CustomerSegment,Country,City,SalesRegion,Priority
+C001,HoReCa Customer 001,HoReCa,Poland,Warsaw,East Europe,Standard
+C002,Retail Chain Customer 002,Retail Chain,Latvia,Daugavpils,Baltics,Strategic
+C003,Convenience Customer 003,Convenience,Latvia,Riga,Baltics,Standard
+C004,Retail Chain Customer 004,Retail Chain,Lithuania,Kaunas,Baltics,Standard
+C005,Retail Chain Customer 005,Retail Chain,Latvia,Riga,Baltics,Low
+C006,Retail Chain Customer 006,Retail Chain,Poland,Warsaw,East Europe,Standard
+C007,Retail Chain Customer 007,Retail Chain,Germany,Berlin,West Europe,Strategic
+C008,Retail Chain Customer 008,Retail Chain,Germany,Berlin,West Europe,Standard
+C009,Retail Chain Customer 009,Retail Chain,Poland,Gdansk,East Europe,Strategic
+C010,HoReCa Customer 010,HoReCa,Poland,Gdansk,East Europe,Standard
+C011,Convenience Customer 011,Convenience,Latvia,Riga,Baltics,Low
+C012,Retail Chain Customer 012,Retail Chain,Latvia,Daugavpils,Baltics,Standard
+C013,Retail Chain Customer 013,Retail Chain,Latvia,Daugavpils,Baltics,Standard
+C014,Retail Chain Customer 014,Retail Chain,Germany,Berlin,West Europe,Standard
+C015,Retail Chain Customer 015,Retail Chain,Germany,Berlin,West Europe,Low
+C016,E-commerce Customer 016,E-commerce,Germany,Berlin,West Europe,Standard
+C017,Retail Chain Customer 017,Retail Chain,Latvia,Daugavpils,Baltics,Low
+C018,Distributor Customer 018,Distributor,Latvia,Riga,Baltics,Low
+C019,Retail Chain Customer 019,Retail Chain,Lithuania,Kaunas,Baltics,Standard
+C020,Distributor Customer 020,Distributor,Lithuania,Kaunas,Baltics,Low
+C021,HoReCa Customer 021,HoReCa,Lithuania,Vilnius,Baltics,Low
+C022,Distributor Customer 022,Distributor,Estonia,Tallinn,Baltics,Standard
+C023,HoReCa Customer 023,HoReCa,Estonia,Tallinn,Baltics,Low
+C024,Convenience Customer 024,Convenience,Germany,Hamburg,West Europe,Standard
+C025,Retail Chain Customer 025,Retail Chain,Lithuania,Kaunas,Baltics,Low
+C026,Retail Chain Customer 026,Retail Chain,Germany,Hamburg,West Europe,Standard
+C027,Convenience Customer 027,Convenience,Latvia,Riga,Baltics,Standard
+C028,Retail Chain Customer 028,Retail Chain,Germany,Hamburg,West Europe,Low
+C029,Distributor Customer 029,Distributor,Latvia,Daugavpils,Baltics,Strategic
+C030,Convenience Customer 030,Convenience,Latvia,Daugavpils,Baltics,Standard
+C031,Distributor Customer 031,Distributor,Latvia,Daugavpils,Baltics,Standard
+C032,Convenience Customer 032,Convenience,Latvia,Riga,Baltics,Standard
+C033,Retail Chain Customer 033,Retail Chain,Germany,Hamburg,West Europe,Standard
+C034,Retail Chain Customer 034,Retail Chain,Poland,Warsaw,East Europe,Standard
+C035,HoReCa Customer 035,HoReCa,Estonia,Tallinn,Baltics,Low
+C036,Retail Chain Customer 036,Retail Chain,Latvia,Daugavpils,Baltics,Standard
+C037,Retail Chain Customer 037,Retail Chain,Latvia,Daugavpils,Baltics,Standard
+C038,Retail Chain Customer 038,Retail Chain,Estonia,Tallinn,Baltics,Standard
+C039,Distributor Customer 039,Distributor,Latvia,Daugavpils,Baltics,Standard
+C040,HoReCa Customer 040,HoReCa,Lithuania,Vilnius,Baltics,Standard
+C041,Convenience Customer 041,Convenience,Estonia,Tallinn,Baltics,Low
+C042,Retail Chain Customer 042,Retail Chain,Germany,Hamburg,West Europe,Standard
+C043,Distributor Customer 043,Distributor,Estonia,Tallinn,Baltics,Strategic
+C044,Retail Chain Customer 044,Retail Chain,Lithuania,Vilnius,Baltics,Low
+C045,Retail Chain Customer 045,Retail Chain,Germany,Hamburg,West Europe,Standard
+C046,Convenience Customer 046,Convenience,Lithuania,Kaunas,Baltics,Standard
+C047,HoReCa Customer 047,HoReCa,Estonia,Tallinn,Baltics,Standard
+C048,Retail Chain Customer 048,Retail Chain,Latvia,Riga,Baltics,Standard
+C049,Retail Chain Customer 049,Retail Chain,Estonia,Tallinn,Baltics,Standard
+C050,Convenience Customer 050,Convenience,Lithuania,Vilnius,Baltics,Standard
+C051,HoReCa Customer 051,HoReCa,Germany,Berlin,West Europe,Standard
+C052,Retail Chain Customer 052,Retail Chain,Latvia,Riga,Baltics,Low
+C053,HoReCa Customer 053,HoReCa,Lithuania,Vilnius,Baltics,Standard
+C054,Retail Chain Customer 054,Retail Chain,Germany,Hamburg,West Europe,Strategic
+C055,HoReCa Customer 055,HoReCa,Estonia,Tallinn,Baltics,Low
+C056,Distributor Customer 056,Distributor,Latvia,Riga,Baltics,Standard
+C057,Convenience Customer 057,Convenience,Lithuania,Kaunas,Baltics,Standard
+C058,Distributor Customer 058,Distributor,Germany,Hamburg,West Europe,Standard
+C059,Distributor Customer 059,Distributor,Lithuania,Vilnius,Baltics,Standard
+C060,Distributor Customer 060,Distributor,Lithuania,Vilnius,Baltics,Standard
+C061,Retail Chain Customer 061,Retail Chain,Poland,Gdansk,East Europe,Standard
+C062,E-commerce Customer 062,E-commerce,Poland,Warsaw,East Europe,Standard
+C063,Retail Chain Customer 063,Retail Chain,Lithuania,Kaunas,Baltics,Standard
+C064,HoReCa Customer 064,HoReCa,Latvia,Daugavpils,Baltics,Strategic
+C065,Retail Chain Customer 065,Retail Chain,Germany,Berlin,West Europe,Standard
+C066,Retail Chain Customer 066,Retail Chain,Germany,Berlin,West Europe,Standard
+C067,Retail Chain Customer 067,Retail Chain,Lithuania,Kaunas,Baltics,Standard
+C068,Retail Chain Customer 068,Retail Chain,Poland,Gdansk,East Europe,Standard
+C069,HoReCa Customer 069,HoReCa,Estonia,Tallinn,Baltics,Standard
+C070,Retail Chain Customer 070,Retail Chain,Germany,Hamburg,West Europe,Strategic
+C071,Retail Chain Customer 071,Retail Chain,Estonia,Tallinn,Baltics,Low
+C072,Retail Chain Customer 072,Retail Chain,Estonia,Tallinn,Baltics,Standard
+C073,Convenience Customer 073,Convenience,Poland,Warsaw,East Europe,Standard
+C074,Retail Chain Customer 074,Retail Chain,Germany,Hamburg,West Europe,Low
+C075,Retail Chain Customer 075,Retail Chain,Lithuania,Kaunas,Baltics,Standard
+C076,HoReCa Customer 076,HoReCa,Latvia,Riga,Baltics,Standard
+C077,HoReCa Customer 077,HoReCa,Lithuania,Kaunas,Baltics,Strategic
+C078,Convenience Customer 078,Convenience,Poland,Warsaw,East Europe,Standard
+C079,Convenience Customer 079,Convenience,Latvia,Daugavpils,Baltics,Standard
+C080,Convenience Customer 080,Convenience,Estonia,Tallinn,Baltics,Standard
