@@ -2,8 +2,8 @@
 
 ### Sheet 1: Overview
 
-<img width="1295" height="729" alt="image" src="https://github.com/user-attachments/assets/921544b9-5c49-40f7-901e-3730a603174e" />
+<img width="1410" height="795" alt="image" src="https://github.com/user-attachments/assets/ef07e3e5-949f-4dbf-b8de-d3a1fd0ccbd7" />
 
 ### Sheet 2: Operating Problem
 
-<img width="1294" height="725" alt="image" src="https://github.com/user-attachments/assets/8ad63aa3-6b14-4a5f-9572-4902a22cff2f" />
+<img width="1405" height="794" alt="image" src="https://github.com/user-attachments/assets/73a24fac-ebe8-4275-8060-170d21b78e11" />
