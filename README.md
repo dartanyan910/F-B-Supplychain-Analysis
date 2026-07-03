@@ -28,7 +28,7 @@ Insights and recommendations are provided on the following key areas:
 - **Category 2: Operational Risk.** Stockout, waste, and quality issue distribution across the supply network.
 - **Category 3: Supplier & Warehouse Performance.** Comparative efficiency and root-cause diagnosis across operational dimensions, including supplier performance segmented by customer priority group.
 
-An interactive dashboard used to report and explore supply chain trends can be found here [link].
+An interactive dashboard used to report and explore supply chain trends can be found here [link](https://github.com/dartanyan910/F-B-Supplychain-Analysis/tree/main/DASHBOARD).
 
 ---
 
